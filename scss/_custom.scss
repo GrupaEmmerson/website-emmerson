@@ -1,0 +1,46 @@
+// Here you can add other styles
+body{
+  background-color: #151b1e;
+  color: #151b1e;
+}
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.search-color{
+  background-color: #555d65;
+  border: 1px solid #32373e;
+  color: #fff;
+}
+// Create placeholder mixin
+@mixin placeholder($color, $size:"") {
+  &::-webkit-input-placeholder {
+    color: $color;
+    @if $size != "" {
+      font-size: $size;
+    }
+  }
+  &:-moz-placeholder {
+    color: $color;
+    @if $size != "" {
+      font-size: $size;
+    }
+  }
+  &::-moz-placeholder {
+    color: $color;
+    @if $size != "" {
+      font-size: $size;
+    }
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+    @if $size != "" {
+      font-size: $size;
+    }
+  }
+}
+
+// Use placeholder mixin (the size parameter is optional)
+[placeholder] {
+  @include placeholder(#fff, 14px);
+}
