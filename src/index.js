@@ -1,25 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
+import { HashRouter, Route, Switch} from 'react-router-dom';
+import { createBrowserHistory as historyBrowser} from 'history';
+
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 // Styles
-// Import Font Awesome Icons Set
 import 'font-awesome/css/font-awesome.min.css';
-  // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css';
-// Import Main styles for this application
-import '../scss/style.scss'
+import '../scss/style.scss';
 
 // Containers
-import Full from './containers/Full/'
+import Full from './containers/Full/';
+import reducers from './reducers';
+import {GET_LOCATION} from "./actions/types";
 
-const history = createBrowserHistory();
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+store.dispatch({type: GET_LOCATION});
+const history = historyBrowser();
 
 ReactDOM.render((
-  <HashRouter history={history}>
-    <Switch>
-      <Route path="/" name="Main Page" component={Full}/>
-    </Switch>
-  </HashRouter>
+    <Provider store={store}>
+        <HashRouter history={history}>
+            <Switch>
+              <Route path="/" name="Main Page" component={Full}/>
+            </Switch>
+        </HashRouter>
+    </Provider>
 ), document.getElementById('root'));

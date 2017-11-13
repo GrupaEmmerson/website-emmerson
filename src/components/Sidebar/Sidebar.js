@@ -1,100 +1,127 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
-import {Badge, Nav, NavItem} from 'reactstrap';
-import classNames from 'classnames';
-import nav from './_nav'
+import { compose, withProps } from "recompose"
+import { withScriptjs } from "react-google-maps"
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
+let testWeakMap = new WeakMap();
 
 class Sidebar extends Component {
+    constructor (props) {
+        super(props);
+        this.state = { location: '' };
+    }
 
-  handleClick(e) {
-    e.preventDefault();
-    e.target.parentElement.classList.toggle('open');
-  }
+    componentWillMount() {
+        this.setState({ markers: [] });
+    }
 
-  activeRoute(routeName, props) {
-    // return this.props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
-    return props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
+    get state () {
+        return testWeakMap.get(this);
+    }
 
-  }
+    set state (value) {
+        testWeakMap.set(this, value);
+    }
 
-  // todo Sidebar nav secondLevel
-  // secondLevelActive(routeName) {
-  //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
-  // }
+    setLocation(Location){
+        this.props.setLocation(Location);
+    }
+
+    setViewport(viewport){
+        this.props.setViewport(viewport);
+    }
+
+    render() {
+        const { compose, withProps, lifecycle } = require("recompose");
+        const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
+
+        const PlacesWithStandaloneSearchBox = compose(
+            withProps({
+                googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBoxYm5LJKUVyIUqxMMFX1OqDyMZ0ZF1Co&v=3.exp&libraries=geometry,drawing,places",
+                loadingElement: <div style={{ height: `100%` }} />,
+                containerElement: <div style={{ height: `400px` }} />,
+            }),
+            lifecycle({
+            componentWillMount() {
+                const refs = {};
+
+                this.setState({
+                    places: [],
+                    setBounds: [],
+
+                    onSearchBoxMounted: ref => {
+                        refs.searchBox = ref;
+                    },
+                    onPlacesChanged: () => {
+                        const places = refs.searchBox.getPlaces();
+
+                        this.setState({
+                            places,
+
+                        });
 
 
-  render() {
+                    },
+                })
+            },
+          }),
+          withScriptjs
+        )(props =>
+            <div data-standalone-searchbox="">
+            <StandaloneSearchBox
+                ref={props.onSearchBoxMounted}
+                bounds={props.bounds}
+                onPlacesChanged={props.onPlacesChanged}
+            >
+                <input
+                    className="search-color"
+                    type="text"
+                    placeholder="Wyszukaj..."
+                    style={{
+                        boxSizing: `border-box`,
+                        border: `1px solid transparent`,
+                        width: `100%`,
+                        height: `32px`,
+                        padding: `0 12px`,
+                        borderRadius: `3px`,
+                        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                        fontSize: `14px`,
+                        outline: `none`,
+                        textOverflow: `ellipses`,
+                    }}
+                />
+            </StandaloneSearchBox>
+                {
+                    this.setViewport(props.place)
+                }
 
-    const props = this.props;
-    const activeRoute = this.activeRoute;
-    const handleClick = this.handleClick;
+            </div>
+        );
 
-    // badge addon to NavItem
-    const badge = (badge) => {
-      if (badge) {
-        const classes = classNames( badge.class );
-        return (<Badge className={ classes } color={ badge.variant }>{ badge.text }</Badge>)
-      }
-    };
-
-    // simple wrapper for nav-title item
-    const wrapper = item => { return (!item.wrapper ? item.name : (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name))) };
-
-    // nav list section title
-    const title =  (title, key) => {
-      const classes = classNames( "nav-title", title.class);
-      return (<li key={key} className={ classes }>{wrapper(title)} </li>);
-    };
-
-    // nav list divider
-    const divider = (divider, key) => (<li key={key} className="divider"></li>);
-
-    // nav item with nav link
-    const navItem = (item, key) => {
-      const classes = classNames( "nav-link", item.class);
-      return (
-        <NavItem key={key}>
-          <NavLink to={item.url} className={ classes } activeClassName="active">
-            <i className={item.icon}></i>{item.name}{badge(item.badge)}
-          </NavLink>
-        </NavItem>
-      )
-    };
-
-    // nav dropdown
-    const navDropdown = (item, key) => {
-      return (
-        <li key={key} className={activeRoute(item.url, props)}>
-          <a className="nav-link nav-dropdown-toggle" href="#" onClick={handleClick.bind(this)}><i className={item.icon}></i> {item.name}</a>
-          <ul className="nav-dropdown-items">
-            {navList(item.children)}
-          </ul>
-        </li>)
-    };
-
-    // nav link
-    const navLink = (item, idx) =>
-      item.title ? title(item, idx) :
-      item.divider ? divider(item, idx) :
-      item.children ? navDropdown(item, idx)
-                    : navItem(item, idx) ;
-
-    // nav list
-    const navList = (items) => {
-      return items.map( (item, index) => navLink(item, index) );
-    };
-
-    // sidebar-nav root
     return (
-      <div className="sidebar">
-        <nav className="sidebar-nav">
-          <Nav>
-            {navList(nav.items)}
-          </Nav>
-        </nav>
-      </div>
-    )
-  }
+        <div className="sidebar">
+            <div className="col-md-12">
+                <div style={{padding: 5+'px'}}>
+                    <PlacesWithStandaloneSearchBox />
+                </div>
+            </div>
+        </div>
+        )
+    }
 }
 
-export default Sidebar;
+function mapStateToProps(state){
+    return {
+        location: state.location.location,
+        viewport: state.viewport.viewport
+    }
+}
+
+Sidebar.contextTypes = {
+    router: function () {
+        return React.PropTypes.object.isRequired;
+    }
+};
+
+export default connect(mapStateToProps, actions)(Sidebar);

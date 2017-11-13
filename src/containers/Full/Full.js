@@ -3,6 +3,7 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import Header from '../../components/Header/';
 import Footer from '../../components/Footer/';
 import Home from '../../views/Home/';
+import Sidebar from '../../components/Sidebar/';
 
 class Full extends Component {
   render() {
@@ -10,6 +11,7 @@ class Full extends Component {
       <div className="app">
         <Header />
         <div className="app-body">
+          <Sidebar {...this.props}/>
           <main className="main">
               <Switch>
                 <Route path="/home" name="Home" component={Home}/>
