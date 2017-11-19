@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, FusionTablesLayer } from "react-google-maps"
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
@@ -10,7 +10,6 @@ class Home extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            searchTerm: 'Warszawa',
             markers: [],
             viewport: [],
             latitude: 52.2209732,
@@ -32,29 +31,8 @@ class Home extends Component {
         this.setState({searchTerm: term});
     }
 
-    componentWillMount() {
-        this.setState({ markers: [] });
-    }
-
-    componentDidMount() {
-        const url = [
-            // Length issue
-            `https://gist.githubusercontent.com`,
-            `/farrrr/dfda7dd7fccfec5474d3`,
-            `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
-        ].join("");
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({ markers: data.photos });
-            });
-    }
-    drawLabel(){
-
-    }
     render() {
-        console.log(this.props.viewport);
+
         const _ = require("lodash");
         const { compose, withProps, lifecycle } = require("recompose");
         const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
@@ -76,6 +54,8 @@ class Home extends Component {
                             lat: 52.2209732, lng: 21.0118365
                         },
                         markers: [],
+                        markersOffer: [],
+                        searchTerm: 'Warszawa',
                         onMapMounted: ref => {
                             refs.map = ref;
                         },
@@ -90,6 +70,12 @@ class Home extends Component {
                         },
                         onPlacesChanged: () => {
                             const places = refs.searchBox.getPlaces();
+                            places.map(p => {
+                                this.setState({searchTerm: p.formatted_address.replace(/,/g, "").replace(/Polska/g, "")});
+                                console.log(p.formatted_address);
+                                console.log(p);
+                            });
+                            console.log(this.state.searchTerm);
                             const bounds = new google.maps.LatLngBounds();
 
                             places.forEach(place => {
@@ -125,13 +111,44 @@ class Home extends Component {
                 <SearchBox
                     ref={props.onSearchBoxMounted}
                     bounds={props.bounds}
+                    controlPosition={google.maps.ControlPosition.TOP_LEFT}
                     onPlacesChanged={props.onPlacesChanged}
                 >
-
+                    <input
+                        type="text"
+                        placeholder="Customized your placeholder"
+                        style={{
+                            boxSizing: `border-box`,
+                            border: `1px solid transparent`,
+                            width: `240px`,
+                            height: `32px`,
+                            marginTop: `27px`,
+                            padding: `0 12px`,
+                            borderRadius: `3px`,
+                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                            fontSize: `14px`,
+                            outline: `none`,
+                            textOverflow: `ellipses`,
+                        }}
+                    />
                 </SearchBox>
                 {props.markers.map((marker, index) =>
                     <Marker key={index} position={marker.position} />
                 )}
+                <FusionTablesLayer
+                    options={{
+                        heatmap: { enabled: false },
+                        query: {
+                            select: "col6",
+                            from: "1ZzWUXfp3qdWmjqWd4RMUb38jdoAqPtwZLMRZsAmU",
+                            where: "price <= 450000"
+                        },
+                        options: {
+                            styleId: 2,
+                            templateId: 2
+                        }
+                    }}
+                />
             </GoogleMap>
         );
 

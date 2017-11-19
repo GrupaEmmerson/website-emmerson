@@ -86,7 +86,7 @@ class Header extends Component {
                   </NavItem>
 
                   <NavItem className="px-3 d-md-down-none">
-                      <NavLink href="#">Sprzedaj</NavLink>
+                      <NavLink href="#">Wynajmij</NavLink>
                   </NavItem>
                 </Nav>
           </header>
