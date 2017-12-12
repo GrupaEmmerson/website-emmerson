@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, FusionTablesLayer } from "react-google-maps"
+
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import { MapWithASearchBox } from './MapContainer'
+import OffersView from "./OffersView";
 
 let testWeakMap = new WeakMap();
 
@@ -14,9 +15,13 @@ class Home extends Component {
             viewport: [],
             latitude: 52.2209732,
             longitude: 21.0118365,
+            checkLocation: '',
+            maxLatitude: 52.321709857270186,
+            minLatitude: 52.12000751685476,
+            maxLongitude: 21.186587781738353,
+            minLongitude: 20.83708521826179
         };
 
-        this.searchUpdated = this.searchUpdated.bind(this);
     }
 
     get state () {
@@ -27,138 +32,54 @@ class Home extends Component {
         testWeakMap.set(this, value);
     }
 
-    searchUpdated (term) {
-        this.setState({searchTerm: term});
+    componentDidMount() {
+        const apiUrl = `http://api-www.emmerson.pl/offers?` +
+            'minLatitude=' + parseFloat(this.state.minLatitude) +
+            '&maxLatitude=' + parseFloat(this.state.maxLatitude) +
+            '&minLongitude=' + parseFloat(this.state.minLongitude) +
+            '&maxLongitude=' + parseFloat(this.state.maxLongitude);
+
+        const url = [apiUrl].join("");
+        fetch(url)
+            .then(res => res.json())
+            .then(response => {
+                this.props.setOffers({tableData: response});
+            });
+    }
+
+    componentDidUpdate(){
+        if(this.props.location && this.props.isLoaded === false){
+            setTimeout(()=>{
+                const apiUrl = `http://api-www.emmerson.pl/offers?`+
+                    'minLatitude='+ parseFloat(this.props.location.arguments.minLatitude) +
+                    '&maxLatitude='+ parseFloat(this.props.location.arguments.maxLatitude) +
+                    '&minLongitude='+ parseFloat(this.props.location.arguments.minLongitude) +
+                    '&maxLongitude='+ parseFloat(this.props.location.arguments.maxLongitude);
+
+                const url = [apiUrl].join("");
+                fetch(url)
+                    .then(res => res.json())
+                    .then(response => {
+                        this.props.setOffers({tableData: response});
+                    });
+
+                this.props.setIsLoaded(true);
+            },100);
+        }
     }
 
     render() {
-
-        const _ = require("lodash");
-        const { compose, withProps, lifecycle } = require("recompose");
-        const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
-
-        const MapWithASearchBox = compose(
-            withProps({
-                googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBoxYm5LJKUVyIUqxMMFX1OqDyMZ0ZF1Co&v=3.exp&libraries=geometry,drawing,places",
-                loadingElement: <div style={{ height: `100%` }} />,
-                containerElement: <div style={{ height: `100%` }} />,
-                mapElement: <div style={{ height: `100%` }} />,
-            }),
-            lifecycle({
-                componentWillMount() {
-                    const refs = {};
-
-                    this.setState({
-                        bounds: null,
-                        center: {
-                            lat: 52.2209732, lng: 21.0118365
-                        },
-                        markers: [],
-                        markersOffer: [],
-                        searchTerm: 'Warszawa',
-                        onMapMounted: ref => {
-                            refs.map = ref;
-                        },
-                        onBoundsChanged: () => {
-                            this.setState({
-                                bounds: refs.map.getBounds(),
-                                center: refs.map.getCenter(),
-                            })
-                        },
-                        onSearchBoxMounted: ref => {
-                            refs.searchBox = ref;
-                        },
-                        onPlacesChanged: () => {
-                            const places = refs.searchBox.getPlaces();
-                            places.map(p => {
-                                this.setState({searchTerm: p.formatted_address.replace(/,/g, "").replace(/Polska/g, "")});
-                                console.log(p.formatted_address);
-                                console.log(p);
-                            });
-                            console.log(this.state.searchTerm);
-                            const bounds = new google.maps.LatLngBounds();
-
-                            places.forEach(place => {
-                                if (place.geometry.viewport) {
-                                    bounds.union(place.geometry.viewport)
-                                } else {
-                                    bounds.extend(place.geometry.location)
-                                }
-                            });
-                            const nextMarkers = places.map(place => ({
-                                position: place.geometry.location,
-                            }));
-                            const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
-
-                            this.setState({
-                                center: nextCenter,
-                                markers: nextMarkers,
-                            });
-                            refs.map.fitBounds(bounds);
-                        },
-                    })
-                },
-            }),
-            withScriptjs,
-            withGoogleMap
-        )(props =>
-            <GoogleMap
-                ref={props.onMapMounted}
-                defaultZoom={12}
-                center={props.center}
-                onBoundsChanged={props.onBoundsChanged}
-            >
-                <SearchBox
-                    ref={props.onSearchBoxMounted}
-                    bounds={props.bounds}
-                    controlPosition={google.maps.ControlPosition.TOP_LEFT}
-                    onPlacesChanged={props.onPlacesChanged}
-                >
-                    <input
-                        type="text"
-                        placeholder="Customized your placeholder"
-                        style={{
-                            boxSizing: `border-box`,
-                            border: `1px solid transparent`,
-                            width: `240px`,
-                            height: `32px`,
-                            marginTop: `27px`,
-                            padding: `0 12px`,
-                            borderRadius: `3px`,
-                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                            fontSize: `14px`,
-                            outline: `none`,
-                            textOverflow: `ellipses`,
-                        }}
-                    />
-                </SearchBox>
-                {props.markers.map((marker, index) =>
-                    <Marker key={index} position={marker.position} />
-                )}
-                <FusionTablesLayer
-                    options={{
-                        heatmap: { enabled: false },
-                        query: {
-                            select: "col6",
-                            from: "1ZzWUXfp3qdWmjqWd4RMUb38jdoAqPtwZLMRZsAmU",
-                            where: "price <= 450000"
-                        },
-                        options: {
-                            styleId: 2,
-                            templateId: 2
-                        }
-                    }}
-                />
-            </GoogleMap>
-        );
-
+        if(!this.props.offers)
+            return(<div>Loading...</div>);
         return (
-            <div style={{ height: '100%' }} className="row" >
-                <div className="col-md-9">
-                    <MapWithASearchBox markers={this.state.markers} />
-                </div>
-                <div className="col-md-3">
-
+            <div className='container-fluid' style={{margin: 0, paddingLeft: 15, paddingRight: 15}}>
+                <div className="row">
+                    <div className="col-lg-9 col-md-12 col-sm-12 nopadding" id="left">
+                        <MapWithASearchBox viewport={this.props.viewport} tableData={this.props.offers.tableData}/>
+                    </div>
+                    <div className="col-lg-3 col-md-12 col-sm-12 nopadding right-bar" style={{float: 'left'}}>
+                        <OffersView tableData={this.props.offers.tableData} count={20}/>
+                    </div>
                 </div>
             </div>
         )
@@ -169,7 +90,10 @@ class Home extends Component {
 function mapStateToProps(state){
     return {
         location: state.location.location,
-        viewport: state.viewport.viewport
+        viewport: state.viewport.viewport,
+        offers: state.offers.offers,
+        isLoaded: state.isLoaded.isLoaded,
+
     }
 }
 

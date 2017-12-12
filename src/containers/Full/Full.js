@@ -19,7 +19,6 @@ class Full extends Component {
               </Switch>
           </main>
         </div>
-        <Footer />
       </div>
     );
   }

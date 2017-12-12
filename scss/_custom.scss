@@ -3,6 +3,15 @@ body{
   background-color: #151b1e;
   color: #151b1e;
 }
+#left {
+  position: fixed;
+  top: 55px;
+  bottom: 0;
+}
+.right-bar{
+  position: absolute;
+  right: 0;
+}
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
@@ -39,8 +48,75 @@ body{
     }
   }
 }
+@media (max-width: 991px) {
+  #left {
+    position: relative;
+    height: 550px;
+    top: 0;
+    bottom: 0;
+  }
+  .right-bar{
+    position: relative;
+  }
+  .smalltitle2 {
+    min-height:166px;
+  }
+}
 
+@media (max-width: 770px) {
+  .smalltitle2 {
+    min-height:366px!important;
+    margin: 0;
+  }
+  .search-box{
+    margin-top: 45px!important;
+  }
+  .offer-info{
+    margin-top: 300px!important;
+  }
+}
 // Use placeholder mixin (the size parameter is optional)
 [placeholder] {
   @include placeholder(#fff, 14px);
+}
+
+.smalltitle2 {
+  border-bottom: medium solid #e3001b;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width:auto;
+  height: auto;
+  min-height:100%;
+  min-width:100%;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.icons-top-right{
+  float: right;
+}
+.offer-text{
+  color: #fff;
+  text-shadow: 2px 3px 8px #32373e;
+  margin-left: 0;
+  padding-bottom: 10px;
+
+  background: rgba(0,0,0,0);
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.39) 53%, rgba(0,0,0,0.73) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0)), color-stop(53%, rgba(0,0,0,0.39)), color-stop(100%, rgba(0,0,0,0.73)));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.39) 53%, rgba(0,0,0,0.73) 100%);
+  background: -o-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.39) 53%, rgba(0,0,0,0.73) 100%);
+  background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.39) 53%, rgba(0,0,0,0.73) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.39) 53%, rgba(0,0,0,0.73) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+
+.offer-info{
+  width: auto;
+  height: auto;
+  min-height: 100%;
+  min-width: 100%;
+  margin-top: 200px;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
 }
