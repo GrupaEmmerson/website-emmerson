@@ -10,9 +10,9 @@ deploy:
   provider: gcs
   access_key_id: GOOGBITGKSTHYZST362P
   secret_access_key:
-    secure: m7KW0rLp53MCYetdHGaosKB99kS6Aw8NurZ8MLaLheUlI/EsADb2zP0QRtKhuHVelXQryypm8wR+yniFDwtBtjPyafq2h3lGaQMMhbIY1/oOUBWeB6ZoF4drwI06vTTokeehfHLZm0sH9Pxrsz7GzMJeHgYuEkqueRTxplVSpNDw2TR45XIivppLCzsfnuN3o+QKyNiWI5JFv6dtNHfGXNyWYsh6J+vySS6CoklB1Cn7r4
-            JneFQTMXHIepsGeFq9244VKmLOgubQrOjVZsHU/xDweBByj6vEeX4Qiao7Ylq0wfhWVTqCLO7btHReG3zRMAfw04kak+tFcqbzRlMjkSU39ckN5rMLmNpG48Pw9x3oz8P9AcZmIIkpe1ISH+CoTvuD+NNT7+Ot9str2/oIjmt1taqQE7v6+7i03/fDYyAENtFY0nuj6HqLRhhXhJXYhHTllQcNe6c3fQcliVWLKon5eEJt8hdAFDtUV7/1
-            UAZPS/94tgHokDZ83Wb5VSO3ANvGQDcqQGAZtLvvT40WM/oqlY2BuAygo5myARVLrdS+Fw03xhHkbI022g/hOAMc/iluJAB83G2eVr1PCXQ6Y+1786F7fqw7FT2u2xSBViFrXztWGaDX3Pe67zG80WUxcL2jdATUJrUrxWZMLCBSJhwZcv1QJNnaHeJnTyR3ErA=
+    secure: YCe+5b9MsDgNkFFutKLnXo3hedb04rh7wAdagES3v2x8TMxHVWU8FDRXow7h4bhMMpRCNTZWIwsjaB9hZwbQFq7ah5XKHKUJaFBqnjAfF68cm0PVvE04/8IQFrQfcX8sUghPPq+JrmGokiAv3Y+XhJYYWfdYAHCkDUQsWt9EZGhpCvGPlA+wnR4HwYosnaoveA0hkCEPUP3Z8mKbex/XkEUAeZFLSSKY6KNCvyB+aWNgdm
+            /bZzvGhvgM57VHMdHERB68zwwFeLOd/uXIOIMC7SpeEItOufJ2o1H2U7QTurWSBW/KrRLyRERfY8U6RlML9fjm7x6OiDIXdebWtHXH4MZIIiMvBi7s2IYgIhdjpYSFqbFMnG+th3/uXOCSG00iosFxlbs5t+UvNyaD52yc8hX1ANBIjkkgRVmUs0TOQYnOISq4VsR/pG2af6CBL+dwrfl8E/zqovNyEnzxzTn4ryozmja5C1wmIovSpjgd
+            nr+NyosIi6EQz4BRccEc3CFenldnx7l2Y5UwIr7qOEVDQjTvT8JVb4MSnXJp/8NEqdKnvkXk17biEKXRdUDNh0p+A9pO2t3124vraDpiO6Yxr8F9jfkpQx2X0E7aMXA+Ye5Jj08fe5bAd6nfqIx6RR9vZS8ZC/BFfA+FQTCxFlt0Y/qNtecNQyxVXrnE6fJzQlw=
   bucket: test.draftway.pl
   on:
     repo: GrupaEmmerson/website-emmerson
