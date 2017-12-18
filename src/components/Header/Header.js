@@ -56,7 +56,7 @@ class Header extends Component {
               <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
               <NavbarBrand href="#"/>
 
-              <NavbarToggler className="d-md-down-none" style={{color: '#fff'}} onClick={this.sidebarToggle}><span className="fa fa-search"></span> Wyszukaj</NavbarToggler>
+              <NavbarToggler className="d-md-down-none" style={{color: '#fff'}} onClick={this.sidebarToggle}><span className="fa fa-search"></span> Więcej Filtrów</NavbarToggler>
 
               <Nav className="ml-auto" navbar>
 

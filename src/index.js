@@ -16,6 +16,7 @@ import '../scss/style.scss';
 import Full from './containers/Full/';
 import reducers from './reducers';
 import {GET_LOCATION} from "./actions/types";
+import Offer from "./views/Offer/Offer";
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -26,7 +27,8 @@ ReactDOM.render((
     <Provider store={store}>
         <HashRouter history={history}>
             <Switch>
-              <Route path="/" name="Main Page" component={Full}/>
+                <Route path="/" name="Main Page" component={Full}/>
+                <Route exact path="/offer" name="Offer" component={Offer}/>
             </Switch>
         </HashRouter>
     </Provider>

@@ -96,7 +96,13 @@ class Home extends Component {
 
     render() {
         if(!this.props.offers)
-            return(<div>Loading...</div>);
+            return(
+                <div className='vertical-center'>
+                    <div className='loader' style={{margin: 'auto'}}>
+
+                    </div>
+                </div>
+            );
         return (
             <div className='container-fluid' style={{margin: 0, paddingLeft: 15, paddingRight: 15}}>
                 <div className="row">

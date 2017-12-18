@@ -39,25 +39,31 @@ class Sidebar extends Component {
         testWeakMap.set(this, value);
     }
 
+    checkValid(){
+        if( !(this.state.primaryMarket || this.state.secondaryMarket || this.state.commercialMarket ))
+        {
+            this.setState({noValid: true});
+            return true;
+
+        }
+        else if(!(this.state.flatType||this.state.houseType||this.state.plotType||this.state.hallType||this.state.commercialUnitType||this.state.officeType))
+        {
+            this.setState({noValid: true});
+            return true;
+        }
+        else
+        {
+            this.setState({
+                noValid: false,
+            });
+
+            return false;
+        }
+    }
+
     handleFormSubmit(formData) {
         console.log(formData);
-        if(
-            formData.priceFrom === 0 &&
-            formData.priceTo === 999999999 &&
-            formData.priceM2From === 0 &&
-            formData.priceM2To === 999999999 &&
-            formData.primaryMarket === false &&
-            formData. secondaryMarket === false &&
-            formData.commercialMarket === false &&
-            formData.flatType === false &&
-            formData.houseType === false &&
-            formData.plotType === false &&
-            formData.hallType === false &&
-            formData.commercialUnitType === false &&
-            formData.officeType === false &&
-            (formData.exclusive === false || formData.exclusive === true)  &&
-            (formData.zeroPercent === false || formData.zeroPercent === true)
-        )
+        if( this.checkValid() )
         {
             return (
                 this.setState({noValid: true})
@@ -67,6 +73,7 @@ class Sidebar extends Component {
         {
             this.props.setSearch(formData);
             this.props.setIsLoaded(false);
+            this.setState({noValid: false});
             document.body.classList.toggle('sidebar-hidden');
         }
     }
@@ -77,9 +84,11 @@ class Sidebar extends Component {
         const name = target.name;
 
         this.setState({
-            [name]: value,
-            noValid: false
+            [name]: value
         });
+
+        setTimeout(()=>this.checkValid(), 1000);
+
     }
 
     renderAlert(noValid){
@@ -97,7 +106,7 @@ class Sidebar extends Component {
                         border: 'solid 1px',
                         padding: 5+'px'
                     }}>
-                        <h4 style={{margin: 'auto', marginTop: 15+'px', marginBottom: 15+'px'}}>Wstaw więcej filtrów</h4>
+                        <h4 style={{margin: 'auto', marginTop: 15+'px', marginBottom: 15+'px'}}>Zaznacz rynek i rodzaj nieruchomości</h4>
                     </div>
                 </div>
             );
