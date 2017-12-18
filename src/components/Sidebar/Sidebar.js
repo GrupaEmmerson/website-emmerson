@@ -87,7 +87,7 @@ class Sidebar extends Component {
             [name]: value
         });
 
-        setTimeout(()=>this.checkValid(), 1000);
+        setTimeout(()=>this.checkValid(), 500);
 
     }
 
