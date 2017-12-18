@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "8"
+install:
+    - npm install
+    - npm run build
+deploy:
+  provider: gcs
+  access_key_id: GOOGBITGKSTHYZST362P
+  secret_access_key:
+    secure: rzNoZwD6dwV8ZZgtsRbW1EqJqxmndj32h3eUv1GTwPdqVGh2yibh+ng/Hakep2mu9EDfmP6wTIl+h7P8fMTpTUeDUTKVJjMz9n2tZI/0BoJAjCgBFcR9KvYWpxE7fldBhe3cNq6JjDiJZh8up1C7vwMn32ypjD9WARMUqqJ4TVXE6OlCIqHCzdz0jmlAgyLkcbxSH43XG2FjABnZPgwC42czlcMVGS83WS6BFzVeoLbAXWNp4TD5tirl1u2VaB67Wgnm/LWGP8dwTdVuYDzshkVH9NvcCwpwQTrab/0Fmajir3trxLU4m4rs3A7cCsWzLo00rXlVEzd8iaBkH1emobdMMs6rKAoFZFdN45dAW3Olv/4hVxNv36fKeUv9yS/wREfJ8e0zejc2M6sifRuskYeTbvlpsr7NvWJIKBDLgg7BAFos6HKjRi4tSb/OTEYDPK/kN5fX5jaIS0VcZ6Hf0VylgwVVUeIqQTV3uT2/wsOeP/O81i3PGyvOMefMas4qrFtQuuDhrsqxI2qm8lxjKNIgdUq6ETr8iASyrgtK0Q2OQJpuZb6A9jKJPMQh9fnzL2zkktVTDzGAHYg5HqrwShG0n7JMfSReYl2LRQRvtdW1zlsEyTY+HeQAGImslWvBNC07bVtbi6jUfHMmcB4xcxj+4tgMJx6ZLnzdrTTqdks=
+  bucket: test.draftway.pl
+  on:
+    repo: GrupaEmmerson/website-emmerson
+  skip_cleanup: true
+  acl: public-read
+  cache_control: "max-age=60"
+  local-dir: build
