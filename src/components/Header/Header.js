@@ -11,7 +11,8 @@ import {
   NavbarBrand,
   DropdownToggle
 } from 'reactstrap';
-
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 let testWeakMap = new WeakMap();
 
 class Header extends Component {
@@ -60,11 +61,11 @@ class Header extends Component {
               <Nav className="ml-auto" navbar>
 
                   <NavItem className="px-3 d-md-down-none">
-                      <NavLink href="#" onClick={()=>{}}>Kup</NavLink>
+                      <NavLink href="#" onClick={()=>{this.props.setSearchProperties('&buy=1&rent=0'); this.props.setIsLoaded(false);}}>Kup</NavLink>
                   </NavItem>
 
                   <NavItem className="px-3 d-md-down-none">
-                      <NavLink href="#" onClick={()=>{}}>Wynajmij</NavLink>
+                      <NavLink href="#" onClick={()=>{this.props.setSearchProperties('&buy=0&rent=1'); this.props.setIsLoaded(false);}}>Wynajmij</NavLink>
                   </NavItem>
 
               </Nav>
@@ -73,4 +74,14 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state){
+    return {
+        location: state.location.location,
+        viewport: state.viewport.viewport,
+        offers: state.offers.offers,
+        isLoaded: state.isLoaded.isLoaded,
+        searchProperties: state.searchProperties.searchProperties
+    }
+}
+
+export default connect(mapStateToProps, actions)(Header);

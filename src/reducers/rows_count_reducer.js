@@ -1,11 +1,11 @@
 import {
-    IS_LOADED
+    GET_ROWS_COUNT
 } from '../actions/types';
 
 export default function(state = {}, action){
     switch(action.type){
-        case IS_LOADED:
-            return { ...state, isLoaded: action.payload };
-    }
+        case GET_ROWS_COUNT:
+            return { ...state, rowsCount: action.payload };
+   }
     return state;
 }

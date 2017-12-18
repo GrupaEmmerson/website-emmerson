@@ -7,6 +7,11 @@ body{
   position: fixed;
   top: 55px;
   bottom: 0;
+  left: 0!important;
+  z-index: 999;
+}
+.sidebar{
+  z-index: 9999999;
 }
 .right-bar{
   position: absolute;
@@ -119,4 +124,47 @@ body{
 .flex-container {
   display: flex;
   flex-flow: row wrap;
+}
+.btn-outline-emmerson{
+  color: #e3001b;
+  background-color: transparent;
+  background-image: none;
+  border-color: #e3001b;
+}
+.btn-outline-emmerson:hover {
+  color: #fff;
+  background-color: #e3001b;
+  border-color: #e3001b;
+}
+
+.search-color-text{
+  color: #fff!important;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #e3001b;
+  width: 35px;
+  height: 35px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
 }

@@ -8,6 +8,7 @@ import OffersView from "./OffersView";
 let testWeakMap = new WeakMap();
 
 class Home extends Component {
+
     constructor (props) {
         super(props);
         this.state = {
@@ -33,11 +34,15 @@ class Home extends Component {
     }
 
     componentDidMount() {
+
+        const searchProperties = this.props.searchProperties !== undefined ? this.props.searchProperties : '';
+        const search = this.props.search !== undefined ? this.props.search : '';
+
         const apiUrl = `http://api-www.emmerson.pl/offers?` +
             'minLatitude=' + parseFloat(this.state.minLatitude) +
             '&maxLatitude=' + parseFloat(this.state.maxLatitude) +
             '&minLongitude=' + parseFloat(this.state.minLongitude) +
-            '&maxLongitude=' + parseFloat(this.state.maxLongitude);
+            '&maxLongitude=' + parseFloat(this.state.maxLongitude) + searchProperties + search;
 
         const url = [apiUrl].join("");
         fetch(url)
@@ -45,16 +50,35 @@ class Home extends Component {
             .then(response => {
                 this.props.setOffers({tableData: response});
             });
+
+        this.props.setRowsCount(20);
+        this.props.setIsLoaded(true);
+
     }
 
     componentDidUpdate(){
-        if(this.props.location && this.props.isLoaded === false){
+        if(this.props.isLoaded === false){
+            this.props.setRowsCount(0);
+            const searchProperties = this.props.searchProperties !== undefined ? this.props.searchProperties : '';
+            const search = this.props.search !== undefined ? this.props.search : '';
             setTimeout(()=>{
-                const apiUrl = `http://api-www.emmerson.pl/offers?`+
-                    'minLatitude='+ parseFloat(this.props.location.arguments.minLatitude) +
-                    '&maxLatitude='+ parseFloat(this.props.location.arguments.maxLatitude) +
-                    '&minLongitude='+ parseFloat(this.props.location.arguments.minLongitude) +
-                    '&maxLongitude='+ parseFloat(this.props.location.arguments.maxLongitude);
+                let apiUrl = null;
+                if(!this.props.location)
+                {
+                     apiUrl = `http://api-www.emmerson.pl/offers?` +
+                        'minLatitude=' + parseFloat(this.state.minLatitude) +
+                        '&maxLatitude=' + parseFloat(this.state.maxLatitude) +
+                        '&minLongitude=' + parseFloat(this.state.minLongitude) +
+                        '&maxLongitude=' + parseFloat(this.state.maxLongitude) + searchProperties + search;
+                }
+                else
+                {
+                     apiUrl = `http://api-www.emmerson.pl/offers?`+
+                        'minLatitude='+ parseFloat(this.props.location.arguments.minLatitude) +
+                        '&maxLatitude='+ parseFloat(this.props.location.arguments.maxLatitude) +
+                        '&minLongitude='+ parseFloat(this.props.location.arguments.minLongitude) +
+                        '&maxLongitude='+ parseFloat(this.props.location.arguments.maxLongitude) + searchProperties + search;
+                }
 
                 const url = [apiUrl].join("");
                 fetch(url)
@@ -64,6 +88,8 @@ class Home extends Component {
                     });
 
                 this.props.setIsLoaded(true);
+                setTimeout(()=>{
+                    this.props.setRowsCount(20);},2000);
             },100);
         }
     }
@@ -78,7 +104,7 @@ class Home extends Component {
                         <MapWithASearchBox viewport={this.props.viewport} tableData={this.props.offers.tableData}/>
                     </div>
                     <div className="col-lg-3 col-md-12 col-sm-12 nopadding right-bar" style={{float: 'left'}}>
-                        <OffersView tableData={this.props.offers.tableData} count={20}/>
+                        <OffersView tableData={this.props.offers.tableData} count={this.props.rowsCount}/>
                     </div>
                 </div>
             </div>
@@ -93,7 +119,9 @@ function mapStateToProps(state){
         viewport: state.viewport.viewport,
         offers: state.offers.offers,
         isLoaded: state.isLoaded.isLoaded,
-
+        searchProperties: state.searchProperties.searchProperties,
+        search: state.search.search,
+        rowsCount: state.rowsCount.rowsCount
     }
 }
 

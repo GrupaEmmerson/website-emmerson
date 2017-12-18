@@ -11,6 +11,7 @@ const { compose, withProps, lifecycle} = require("recompose");
 import { connect } from 'react-redux';
 const _ = require("lodash");
 import * as actions from '../../actions';
+import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 const mapStateToProps = state => ({
     viewport: state.viewport.viewport,
@@ -108,6 +109,12 @@ export const MapWithASearchBox = compose(
                 props.onZoomSetBounds(props)
             }, 100)
             }
+            options={
+                {
+                    minZoom: 12,
+                    maxZoom: 16
+                }
+            }
         >
             <SearchBox
                 ref={props.onSearchBoxMounted}
@@ -141,10 +148,11 @@ export const MapWithASearchBox = compose(
                 {props.tableData ? props.tableData.map((e) => {
                     return(
                         <Marker
-                            key={e[0]}
+                            key={e.id}
                             position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }}
                             onClick={() => props.onSelectMarker({ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }, e.id, props)}
                             icon={'./img/'+e.ico}
+                            zIndex={parseInt(e.id)}
                         >
                             {props.viewport && props.viewport.index === e.id &&
                                 <InfoWindow

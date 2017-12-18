@@ -1,11 +1,11 @@
 import {
-    IS_LOADED
+    GET_PROPERTIES
 } from '../actions/types';
 
 export default function(state = {}, action){
     switch(action.type){
-        case IS_LOADED:
-            return { ...state, isLoaded: action.payload };
+        case GET_PROPERTIES:
+            return { ...state, searchProperties: action.payload };
     }
     return state;
 }
