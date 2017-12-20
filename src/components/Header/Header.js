@@ -74,6 +74,7 @@ class Header extends Component {
   }
 }
 
+
 function mapStateToProps(state){
     return {
         location: state.location.location,

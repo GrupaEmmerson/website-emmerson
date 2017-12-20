@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Header from '../../components/Header/';
+import OfferView from './OfferView';
 
 let testWeakMap = new WeakMap();
 
@@ -24,20 +24,8 @@ class Offer extends Component {
     }
 
     render() {
-
         return (
-            <div className="app">
-                <Header />
-                <div className="app-body">
-                    <main className="main">
-                        <div className='vertical-center'>
-                            <div className='loader' style={{margin: 'auto'}}>
-
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            </div>
+            <OfferView {...this.props}/>
         )
     }
 
