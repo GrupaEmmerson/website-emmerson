@@ -168,7 +168,13 @@ body{
   display: flex;
   align-items: center;
 }
+.a-no-decoration{
+  text-decoration: none;
+}
 
+a:hover{
+  text-decoration: none!important;
+}
 
 //Offer
 

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { connect } from 'react-redux';
 import {  } from 'react-router';
 import * as actions from '../../actions';
+import SimpleSlider from './SimpleSlider';
 
 let testWeakMap = new WeakMap();
 
@@ -36,6 +37,7 @@ class OfferView extends Component {
     }
 
     render() {
+
         if(!this.state.offer){
             return (
                 <div className='vertical-center'>
@@ -46,9 +48,19 @@ class OfferView extends Component {
         }
         console.log(this.state.offer);
         return (
-            <div className='container-fluid'>
+            <div style={{backgroundColor: '#999999'}}>
+                <div className='col-12 col-sm-12 col-md-12 col-lg-12' style={{marginBottom: 50+'px', paddingTop: 20+'px'}}>
+                    <SimpleSlider images={this.state.offer.photo}/>
+                </div>
                 <div className='offer-box'>
-                    {<div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} /> }
+                    <div className='col-12 col-sm-12 col-md-12 col-lg-12'>
+                        <div className='col-3 col-sm-3 col-md-3'>
+
+                        </div>
+                        <div className='col-9 col-sm-9 col-md-9'>
+                            <div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} />
+                        </div>
+                    </div>
                 </div>
             </div>
         )

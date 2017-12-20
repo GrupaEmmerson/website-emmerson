@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 const _ = require("lodash");
 import * as actions from '../../actions';
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
+import { Link } from 'react-router-dom'
 
 const mapStateToProps = state => ({
     viewport: state.viewport.viewport,
@@ -160,18 +161,21 @@ export const MapWithASearchBox = compose(
                                     onCloseClick={() => props.onCloseOverlay(props)}
                                     options={{}}
                                 >
-                                    <div className='googft-info-window row' style={{minWidth: 320+'px', width: 100+'%', margin: 0, padding: 0, minHeight: 100 + 'px'}}>
-                                        <div style={{float: left}}>
-                                            <img src={ e.photo_url } style={{width: 150+'px', maxHeight: 100+'px'}}/>
+
+                                <Link to={"/offer/"+e.id} target='_blank'>
+                                    <div className='googft-info-window row nopadding a-no-decoration' style={{minWidth: 330+'px', width: 100+'%', margin: 0, padding: 0, minHeight: 100 + 'px', color: '#000'}}>
+                                            <div style={{float: left}} className='nopadding'>
+                                                <img src={ e.photo_url } style={{width: 150+'px', maxHeight: 100+'px'}}/>
+                                            </div>
+                                            <div style={{float: left, marginLeft: 20+'px'}}>
+                                                <b>Miasto</b> {e.city}<br/>
+                                                <b>Nr. Oferty:</b> {e.number}<br/>
+                                                <b>Rodzaj:</b> {e.item}<br/>
+                                                <b>Cena:</b> {e.price}<br/>
+                                                <b>Cena za m<sup>2</sup>:</b> {e.price_per_m2}<br/>
+                                            </div>
                                         </div>
-                                        <div style={{float: left, marginLeft: 10+'px'}}>
-                                            <b>Miasto</b> {e.city}<br/>
-                                            <b>Nr. Oferty:</b> {e.number}<br/>
-                                            <b>Rodzaj:</b> {e.item}<br/>
-                                            <b>Cena:</b> {e.price}<br/>
-                                            <b>Cena za m<sup>2</sup>:</b> {e.price_per_m2}<br/>
-                                        </div>
-                                    </div>
+                                </Link>
                                 </InfoWindow>
                             }
                         </Marker>);
