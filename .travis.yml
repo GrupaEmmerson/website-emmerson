@@ -8,12 +8,9 @@ install:
     - npm run build
 deploy:
   provider: gcs
-  access_key_id: GOOGBITGKSTHYZST362P
-  secret_access_key:
-    secure: YCe+5b9MsDgNkFFutKLnXo3hedb04rh7wAdagES3v2x8TMxHVWU8FDRXow7h4bhMMpRCNTZWIwsjaB9hZwbQFq7ah5XKHKUJaFBqnjAfF68cm0PVvE04/8IQFrQfcX8sUghPPq+JrmGokiAv3Y+XhJYYWfdYAHCkDUQsWt9EZGhpCvGPlA+wnR4HwYosnaoveA0hkCEPUP3Z8mKbex/XkEUAeZFLSSKY6KNCvyB+aWNgdm
-            /bZzvGhvgM57VHMdHERB68zwwFeLOd/uXIOIMC7SpeEItOufJ2o1H2U7QTurWSBW/KrRLyRERfY8U6RlML9fjm7x6OiDIXdebWtHXH4MZIIiMvBi7s2IYgIhdjpYSFqbFMnG+th3/uXOCSG00iosFxlbs5t+UvNyaD52yc8hX1ANBIjkkgRVmUs0TOQYnOISq4VsR/pG2af6CBL+dwrfl8E/zqovNyEnzxzTn4ryozmja5C1wmIovSpjgd
-            nr+NyosIi6EQz4BRccEc3CFenldnx7l2Y5UwIr7qOEVDQjTvT8JVb4MSnXJp/8NEqdKnvkXk17biEKXRdUDNh0p+A9pO2t3124vraDpiO6Yxr8F9jfkpQx2X0E7aMXA+Ye5Jj08fe5bAd6nfqIx6RR9vZS8ZC/BFfA+FQTCxFlt0Y/qNtecNQyxVXrnE6fJzQlw=
-  bucket: test.draftway.pl
+  access_key_id: $GCS_ACCESS_KEY
+  secret_access_key: $GCS_SECRET_KEY
+  bucket: $GCS_BUCKET_NAME
   on:
     repo: GrupaEmmerson/website-emmerson
   skip_cleanup: true
