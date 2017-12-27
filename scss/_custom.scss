@@ -201,9 +201,10 @@ a:hover{
 }
 
 .white-dots {
-  background-color: RGBA(255,255,255, 0.3)!important;
   color: #fff!important;
   text-shadow: 3px 4px 8px #000!important;
+  z-index: 999999;
+  margin-bottom: 30px;
 }
 
 .white-dots li button:before{
@@ -211,4 +212,23 @@ a:hover{
   text-shadow: 3px 4px 8px #000!important;
 }
 
+.contact{
+  width: 100%;
+  background-color: #e3001b;
+  margin: 0;
+  padding: 20px 0 20px 0;
+  max-height: 70vh;
+  height: auto;
+  position: relative;
+  color: #fff;
+}
 
+@media (min-width: 1700px) {
+  .contact{
+    margin: 40px 0 0 0;
+    position: fixed;
+    width: 300px;
+    right: 0;
+    top: 80px;
+  }
+}

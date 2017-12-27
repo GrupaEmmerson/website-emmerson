@@ -28,13 +28,14 @@ class SimpleSlider extends React.Component {
             image: {
                 backgroundColor: '#fff',
                 margin: 'auto',
-                marginBottom: 106+'px'
+                marginBottom: 106+'px',
+                marginTop: 40+'px'
             },
             container: {
                 textAlign: 'center',
                 position: 'relative',
                 backgroundColor: 'RGBA(255,255,255, 0.3)',
-                marginBottom: 6+'px'
+                marginBottom: 20+'px'
             },
             describe: {
                 position: 'absolute',
@@ -69,7 +70,7 @@ class SimpleSlider extends React.Component {
             <Slider {...settings}>
                 {images.map(e => {
                     return(
-                        <div style={style.container}>
+                        <div style={style.container} className='col-12'>
                             <Image
                                 src={e.link}
                                 alt=""

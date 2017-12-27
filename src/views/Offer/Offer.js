@@ -25,9 +25,7 @@ class Offer extends Component {
 
     render() {
         return (
-            <div className='container-fluid col-10'>
-                <OfferView {...this.props}/>
-            </div>
+            <OfferView {...this.props}/>
         )
     }
 
