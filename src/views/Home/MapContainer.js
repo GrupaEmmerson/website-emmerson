@@ -11,7 +11,6 @@ const { compose, withProps, lifecycle} = require("recompose");
 import { connect } from 'react-redux';
 const _ = require("lodash");
 import * as actions from '../../actions';
-import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 import { Link } from 'react-router-dom'
 
 const mapStateToProps = state => ({

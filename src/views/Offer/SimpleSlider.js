@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import AutoFitImage from 'react-image-autofit-frame';
+import Image from 'react-image-resizer';
 
 let testWeakMap = new WeakMap();
 
@@ -22,8 +23,33 @@ class SimpleSlider extends React.Component {
     }
 
     render() {
-        const {images} = this.props;
-
+        const {images, surface, price, priceM2} = this.props;
+        const style = {
+            image: {
+                backgroundColor: '#fff',
+                margin: 'auto',
+                marginBottom: 106+'px'
+            },
+            container: {
+                textAlign: 'center',
+                position: 'relative',
+                backgroundColor: 'RGBA(255,255,255, 0.3)',
+                marginBottom: 6+'px'
+            },
+            describe: {
+                position: 'absolute',
+                height: 100+'px',
+                bottom: 0,
+                color: '#fff',
+            },
+            text: {
+                marginTop: 30+'px',
+                textShadow: '3px 4px 8px #000'
+            },
+            textColor: {
+                color: '#e3001b'
+            }
+        };
 
         let settings = {
             dots: true,
@@ -36,20 +62,25 @@ class SimpleSlider extends React.Component {
             pauseOnHover: true,
             touchMove: true,
             arrows: false,
+            dotsClass: 'slick-dots white-dots'
         };
 
         return (
             <Slider {...settings}>
                 {images.map(e => {
                     return(
-                        <div>
-                            <AutoFitImage
-                                frameWidth="100%"
-                                frameHeight="533px"
-                                imgSrc={e.link}
+                        <div style={style.container}>
+                            <Image
+                                src={e.link}
+                                alt=""
+                                width={800}
+                                height={533}
+                                style={style.image}
                             />
-                            <div className='col-12' style={{}}>
-                                <h1>Opis oferty</h1>
+                            <div className='col-12 row' style={style.describe}>
+                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Cena:</span> {price}</h2></div>
+                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Cena m<sup>2</sup>:</span> {priceM2}</h2></div>
+                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Powierzchnia:</span> {surface}m<sup>2</sup></h2></div>
                             </div>
                         </div>
                     );
