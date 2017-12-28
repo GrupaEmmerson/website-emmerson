@@ -1,7 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import AutoFitImage from 'react-image-autofit-frame';
-import Image from 'react-image-resizer';
+import NumberFormat from 'react-number-format';
 
 let testWeakMap = new WeakMap();
 
@@ -23,25 +22,32 @@ class SimpleSlider extends React.Component {
     }
 
     render() {
-        const {images, surface, price, priceM2} = this.props;
+        const {images, surface, price, priceM2, full_location} = this.props;
         const style = {
             image: {
-                backgroundColor: '#fff',
                 margin: 'auto',
-                marginBottom: 106+'px',
-                marginTop: 40+'px'
+                width: 'auto',
+                height: 319+'px',
+                marginBottom: 40+'px',
+                border: '3px solid #fff',
+                boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
             },
             container: {
-                textAlign: 'center',
+                textAlign: 'left',
                 position: 'relative',
-                backgroundColor: 'RGBA(255,255,255, 0.3)',
-                marginBottom: 20+'px'
+                backgroundImage: 'URL("./img/offer_background.jpg")',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                marginTop: 5+'px',
+                height: 733+'px'
             },
             describe: {
                 position: 'absolute',
-                height: 100+'px',
+                height: 'auto',
                 bottom: 0,
                 color: '#fff',
+                backgroundColor: 'RGBA(0,0,0,0.6)',
             },
             text: {
                 marginTop: 30+'px',
@@ -53,7 +59,7 @@ class SimpleSlider extends React.Component {
         };
 
         let settings = {
-            dots: true,
+            dots: false,
             infinite: true,
             speed: 500,
             slidesToShow: 1,
@@ -62,31 +68,47 @@ class SimpleSlider extends React.Component {
             autoplay: true,
             pauseOnHover: true,
             touchMove: true,
-            arrows: false,
+            arrows: true,
             dotsClass: 'slick-dots white-dots'
         };
 
         return (
-            <Slider {...settings}>
-                {images.map(e => {
-                    return(
-                        <div style={style.container} className='col-12'>
-                            <Image
-                                src={e.link}
-                                alt=""
-                                width={800}
-                                height={533}
-                                style={style.image}
-                            />
-                            <div className='col-12 row' style={style.describe}>
-                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Cena:</span> {price}</h2></div>
-                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Cena m<sup>2</sup>:</span> {priceM2}</h2></div>
-                                <div className='col-4' style={style.text}><h2><span style={style.textColor}>Powierzchnia:</span> {surface}m<sup>2</sup></h2></div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </Slider>
+            <div style={style.container} >
+                <div className='col-12 col-sm-12 col-md-6 col-lg-6 slider-image' >
+                    <Slider {...settings}>
+                        {images.map(e => {
+                            return(
+                                <div
+                                style={{width: 100+'%'}}
+                                >
+                                    <img
+                                        src={e.link}
+                                        style={style.image}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </Slider>
+                </div>
+                <div className='col-12 row nopadding' style={style.describe}>
+                    <div className='col-12 col-sm-12 col-md-5' style={style.text}>
+                        <span style={style.textColor}>Lokalizacja:</span>
+                        <h3>{full_location}</h3>
+                    </div>
+                    <div className='col-12 col-sm-12 col-md-3' style={style.text}>
+                        <span style={style.textColor}>Cena:</span>
+                        <h3> <NumberFormat value={parseFloat(price)} displayType={'text'} thousandSeparator={' '} suffix={'zł'} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}/></h3>
+                    </div>
+                    <div className='col-6 col-sm-6 col-md-2' style={style.text}>
+                        <span style={style.textColor}>Cena m<sup>2</sup>:</span>
+                        <h3><NumberFormat value={parseFloat(priceM2)} displayType={'text'} thousandSeparator={' '} suffix={'zł'} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}/></h3>
+                    </div>
+                    <div className='col-6 col-sm-6 col-md-2' style={style.text}>
+                        <span style={style.textColor}>Powierzchnia:</span>
+                        <h3><NumberFormat value={parseFloat(surface)} displayType={'text'} thousandSeparator={' '} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}/>m<sup>2</sup></h3>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

@@ -201,15 +201,36 @@ a:hover{
 }
 
 .white-dots {
-  color: #fff!important;
-  text-shadow: 3px 4px 8px #000!important;
   z-index: 999999;
   margin-bottom: 30px;
+  background-color: #fff;
 }
 
 .white-dots li button:before{
-  color: #fff!important;
-  text-shadow: 3px 4px 8px #000!important;
+  font-size: 20px!important;
+}
+.white-dots li button{
+  font-size: 20px!important;
+}
+
+.white-dots li {
+  width: 30px!important;
+}
+
+.slider-image{
+  position: absolute;
+  bottom: 130px;
+  right: 130px;
+}
+
+@media (max-width: 768px) {
+  .slider-image{
+    position: relative!important;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding-top: 100px;
+  }
 }
 
 .contact{
@@ -217,13 +238,13 @@ a:hover{
   background-color: #e3001b;
   margin: 0;
   padding: 20px 0 20px 0;
-  max-height: 70vh;
+  max-height: 100vh;
   height: auto;
   position: relative;
   color: #fff;
 }
 
-@media (min-width: 1700px) {
+@media (min-width: 1750px) {
   .contact{
     margin: 40px 0 0 0;
     position: fixed;
