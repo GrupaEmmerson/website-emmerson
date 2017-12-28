@@ -64,7 +64,7 @@ class OfferView extends Component {
                             <div className='col-12 col-sm-12 col-md-3'>
                                 <InfoOfferView />
                             </div>
-                            <div className='col-12 col-sm-12 col-md-9 nopadding'>
+                            <div className='col-12 col-sm-12 col-md-9'>
                                 <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
                                     <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Mapa:</div>
                                 </div>
@@ -74,7 +74,7 @@ class OfferView extends Component {
                                 <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
                                     <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Opis:</div>
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} style={{marginTop: 40+'px'}}/>
+                                <div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} style={{marginTop: 40+'px', marginBottom: 40+'px'}}/>
                             </div>
                         </div>
                     </div>

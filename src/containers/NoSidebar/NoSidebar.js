@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import HeaderNoSidebar from '../../components/HeaderNoSidebar/';
 import Offer from "../../views/Offer/Offer";
+import Footer from "../../components/Footer/Footer";
 
 class NoSidebar extends Component {
     render() {
@@ -15,6 +16,7 @@ class NoSidebar extends Component {
                         </Switch>
                     </main>
                 </div>
+                <Footer/>
             </div>
         );
     }
