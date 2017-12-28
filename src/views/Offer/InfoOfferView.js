@@ -38,7 +38,7 @@ class InfoOfferView extends Component {
               <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
                   <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-8'>Informacje dodatkowe:</div>
               </div>
-              <div  className='row'>
+              <div  className='row align-items-end'>
                   <div className="col-6">Rozkład:</div><div className="col-6"><div className="float-right">1</div></div>
                   <div className="col-6">Dozór budynku:</div><div className="col-6"><div className="float-right">2</div></div>
                   <div className="col-6">Głośność:</div><div className="col-6"><div className="float-right">3</div></div>

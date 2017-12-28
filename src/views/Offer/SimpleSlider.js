@@ -39,7 +39,6 @@ class SimpleSlider extends React.Component {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center center',
-                marginTop: 5+'px',
                 height: 733+'px'
             },
             describe: {
