@@ -68,7 +68,6 @@ class SimpleSlider extends React.Component {
                         );
                     })}
                 </Slider>
-
                 {this.state.isOpen && (
                     <Lightbox
                         mainSrc={images[this.state.photoIndex].link}
