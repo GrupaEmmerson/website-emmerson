@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import NumberFormat from 'react-number-format';
+import Lightbox from 'react-image-lightbox';
 
 let testWeakMap = new WeakMap();
 
@@ -7,7 +9,9 @@ class InfoOfferView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            offer: null
+            offer: null,
+            photoIndex: 0,
+            isOpen: false,
         };
 
     }
@@ -22,21 +26,72 @@ class InfoOfferView extends Component {
 
 
     render() {
+        const { offer } = this.props;
         return(
           <div>
               <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
-                  <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-8'>Informacje Podstawowe:</div>
+                  <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-9'>Informacje Podstawowe:</div>
               </div>
               <div className='row align-items-end'>
-                    <div className="col-6">Powierzchnia całkowita:</div><div className="col-6"><div className="float-right">1</div></div>
-                    <div className="col-6">Liczba pokoi:</div><div className="col-6"><div className="float-right">2</div></div>
-                    <div className="col-6">Piętro:</div><div className="col-6"><div className="float-right">3</div></div>
-                    <div className="col-6">Ilość pięter:</div><div className="col-6"><div className="float-right">4</div></div>
-                    <div className="col-6">Rok budowy:</div><div className="col-6"><div className="float-right">5</div></div>
-                    <div className="col-6">Numer oferty:</div><div className="col-6"><div className="float-right">6</div></div>
+                  <div className="col-6">
+                      Powierzchnia całkowita:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">
+                          <NumberFormat value={parseFloat(offer.surface)}
+                                        displayType={'text'}
+                                        thousandSeparator={' '}
+                                        decimalSeparator={','}
+                                        decimalScale={2}
+                                        fixedDecimalScale={true}
+                          /> m<sup>2</sup>
+                      </div>
+                  </div>
+                  <div className="col-6">
+                      Liczba pokoi:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">{offer.number_of_rooms}</div>
+                  </div>
+                  <div className="col-6">
+                      Piętro:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">3</div>
+                  </div>
+                  <div className="col-6">
+                      Ilość pięter:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">{offer.number_of_floors}</div>
+                  </div>
+                  <div className="col-6">
+                      Rok budowy:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">{offer.year_of_construction}</div>
+                  </div>
+                  <div className="col-6">
+                      Numer oferty:
+                  </div>
+                  <div className="col-6">
+                      <div className="float-right">{offer.number}</div>
+                  </div>
               </div>
               <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
-                  <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-8'>Informacje dodatkowe:</div>
+                  <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-9'>Rzut:</div>
+              </div>
+              <div  className='col-12'>
+                  <img src='https://cdn31.draftway.pl/virgobig.ashx?5330842' style={{width: 100+'%', cursor: 'pointer'}} onClick={()=>this.setState({ isOpen: true, photoIndex: 0 })}/>
+                  {this.state.isOpen && (
+                      <Lightbox
+                          mainSrc={'https://cdn31.draftway.pl/virgobig.ashx?5330842' }
+                          onCloseRequest={() => this.setState({ isOpen: false })}
+                      />
+                  )}
+              </div>
+              <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
+                  <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-9'>Informacje Dodatkowe:</div>
               </div>
               <div  className='row align-items-end'>
                   <div className="col-6">Rozkład:</div><div className="col-6"><div className="float-right">1</div></div>

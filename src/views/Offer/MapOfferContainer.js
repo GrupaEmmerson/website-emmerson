@@ -20,7 +20,7 @@ export const MapOfferContainer = compose(
 )(props =>
     <GoogleMap
         defaultCenter={ props.markerLocation }
-        defaultZoom={16}
+        defaultZoom={12}
         options={
             {
                 minZoom: 12,

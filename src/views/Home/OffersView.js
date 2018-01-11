@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Link } from 'react-router-dom'
+import NumberFormat from 'react-number-format';
 
 let testWeakMap = new WeakMap();
 
@@ -77,15 +78,15 @@ class OffersView extends Component {
                                                     <h4>Miasto <b>{e.city}</b></h4>
                                                 </div>
                                                 <div className='col-md-6  col-sm-6 col-6'>
-                                                    <h5><b>{e.for_rent !== true ? 'Sprzedaż' : 'Wynajem' }</b></h5>
+                                                    <h4>Oferta <b>{e.for_rent !== true ? 'Kupna' : 'Wynajmu' }</b></h4>
                                                 </div>
                                                 <div className='col-md-6 col-sm-6 col-6'>
                                                     Nr. Oferty: <b>{e.number}</b><br/>
-                                                    Cena: <b>{e.price}</b><br/>
+                                                    Cena: <b><NumberFormat value={parseFloat(e.price)} displayType={'text'} thousandSeparator={' '} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}/> zł</b><br/>
                                                 </div>
                                                 <div className='col-md-6 col-sm-6 col-6'>
                                                     Rodzaj: <b>{e.item}</b><br/>
-                                                    Cena za m<sup>2</sup>: <b>{e.price_per_m2}</b><br/>
+                                                    Cena za m<sup>2</sup>: <b><NumberFormat value={parseFloat(e.price_per_m2)} displayType={'text'} thousandSeparator={' '} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}/> zł</b><br/>
                                                 </div>
                                             </div>
                                         </div>

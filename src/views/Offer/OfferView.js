@@ -6,6 +6,7 @@ import SimpleSlider from './SimpleSlider';
 import Contact from './Contact';
 import { MapOfferContainer } from './MapOfferContainer';
 import InfoOfferView from  './InfoOfferView';
+import HeaderOffer from "./HeaderOffer";
 
 let testWeakMap = new WeakMap();
 
@@ -55,26 +56,45 @@ class OfferView extends Component {
                 <div className='row'>
                     <div className='col-12 col-sm-12 col-md-12 col-lg-12' style={{backgroundColor: '#151b1e', margin: 0, padding: 0}}>
                         <div className='col-12 nopadding' style={{marginBottom: 25+'px'}}>
-                            <SimpleSlider images={this.state.offer.photo} price={this.state.offer.price} priceM2={this.state.offer.price_per_m2} surface={this.state.offer.surface} full_location={this.state.offer.full_location}/>
+                            <HeaderOffer
+                                headerPhoto={this.state.offer.photo[0]}
+                                price={this.state.offer.price}
+                                priceM2={this.state.offer.price_per_m2}
+                                surface={this.state.offer.surface}
+                                full_location={this.state.offer.full_location}
+                                type_of_contract={this.state.offer.type_of_contract}
+                            />
                         </div>
                         <div className='contact'>
-                            <Contact/>
+                            <Contact />
                         </div>
                         <div className='offer-box col-12 col-sm-12 col-md-12 col-lg-12 row nopadding' style={{marginTop: 50+'px'}}>
-                            <div className='col-12 col-sm-12 col-md-3'>
-                                <InfoOfferView />
+                            <div className='col-12' style={{ marginTop: 20+'px'}}>
+
                             </div>
-                            <div className='col-12 col-sm-12 col-md-9'>
+                            <div className='col-12 col-sm-12 col-md-12'>
+                                <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 20+'px'}}>
+                                    <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Galeria:</div>
+                                </div>
+                                <SimpleSlider images={this.state.offer.photo}/>
+                            </div>
+                            <div className='col-12 col-sm-12 col-md-3'>
+                                <InfoOfferView offer={this.state.offer}/>
+                            </div>
+                            <div className='col-12 col-sm-12 col-md-9' style={{marginBottom: 40+'px'}}>
+
+                                <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
+                                    <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Opis:</div>
+                                </div>
+                                <div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} style={{marginTop: 40+'px', marginBottom: 40+'px'}}/>
+
                                 <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
                                     <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Mapa:</div>
                                 </div>
                                 <div style={{margin: 0, padding: 0}}>
                                     <MapOfferContainer markerLocation={{lat: parseFloat(this.state.offer.latitude), lng: parseFloat(this.state.offer.longitude)}} markerIco={this.state.offer.ico}/>
                                 </div>
-                                <div style={{borderBottom: '1px solid #e3001b', color: '#fff', margin: 0, padding: 0, fontSize: 14+'px', marginTop: 40+'px'}}>
-                                    <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-3'>Opis:</div>
-                                </div>
-                                <div dangerouslySetInnerHTML={{ __html: this.state.offer.description }} style={{marginTop: 40+'px', marginBottom: 40+'px'}}/>
+
                             </div>
                         </div>
                     </div>

@@ -75,6 +75,7 @@ class Sidebar extends Component {
             this.props.setIsLoaded(false);
             this.setState({noValid: false});
             document.body.classList.toggle('sidebar-hidden');
+            document.body.classList.toggle('sidebar-mobile-show');
         }
     }
 
@@ -154,6 +155,15 @@ class Sidebar extends Component {
                 <nav className="sidebar-nav">
                     <Nav>
                         <div className='container-fluid nopadding' style={{position: 'relative'}}>
+                            <div className='d-lg-none'>
+                                <div className="col-12" style={{marginTop: 5+'px'}}>
+                                    <button className='btn btn-lg btn-outline-emmerson col-12' onClick={()=>{this.props.setSearchProperties('&buy=1&rent=0'); this.props.setIsLoaded(false); this.context.router.history.push('/')}}>Kup</button>
+                                </div>
+
+                                <div className="col-12" style={{marginTop: 5+'px'}}>
+                                    <button className='btn btn-lg btn-outline-emmerson col-12' onClick={()=>{this.props.setSearchProperties('&buy=0&rent=1'); this.props.setIsLoaded(false); this.context.router.history.push('/')}}>Wynajmij</button>
+                                </div>
+                            </div>
                             <Form >
                                 <legend className="col-form-legend col-sm-12 col-12 hidden-md-up"><h5>Cenna:</h5></legend>
                                 <div className="col-md-12 col-12">

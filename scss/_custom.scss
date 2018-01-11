@@ -150,6 +150,12 @@ body{
   border-color: #e3001b;
 }
 
+.btn-outline-light:hover{
+  color: #fff!important;
+  background-color: #343a40!important;
+  border-color: #343a40!important;
+}
+
 .search-color-text{
   color: #fff!important;
 }
@@ -221,6 +227,11 @@ a:hover{
   position: absolute;
   bottom: 130px;
   right: 130px;
+}
+.slick-next:before, .slick-prev:before {
+  font-size: 20px;
+  line-height: 1;
+  color: #e3001b;
 }
 
 @media (max-width: 768px) {

@@ -28,7 +28,7 @@ class Contact extends Component {
                 <div className="col-md-12 ">
                     <div className="col-md-12 nopadding">
                         <form>
-                            <legend><span className="fa fa-globe"></span> Kontakt:</legend>
+                            <legend><span className="fa fa-envelope"></span> Kontakt:</legend>
                             <address>
                                 <strong>Emmerson</strong> Paweł Jardzioch<br/>
                                 Stawki 40<br/>
@@ -71,7 +71,7 @@ class Contact extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-12">
-                                    <button type="submit" className="btn btn-outline-dark col-12 " id="btnContactUs">
+                                    <button type="submit" className="btn btn-outline-light col-12 " id="btnContactUs">
                                         Wyślij wiadomość</button>
                                 </div>
                             </div>
