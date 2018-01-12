@@ -86,7 +86,19 @@ class InfoOfferView extends Component {
                   {this.state.isOpen && (
                       <Lightbox
                           mainSrc={'https://cdn31.draftway.pl/virgobig.ashx?5330842' }
+                          nextSrc={'https://cdn31.draftway.pl/virgobig.ashx?5330842' }
+                          prevSrc={'https://cdn31.draftway.pl/virgobig.ashx?5330842' }
                           onCloseRequest={() => this.setState({ isOpen: false })}
+                          onMovePrevRequest={() =>
+                              this.setState({
+                                  photoIndex: 0,
+                              })
+                          }
+                          onMoveNextRequest={() =>
+                              this.setState({
+                                  photoIndex: 0,
+                              })
+                          }
                       />
                   )}
               </div>
