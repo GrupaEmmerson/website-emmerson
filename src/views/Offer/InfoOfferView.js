@@ -57,7 +57,7 @@ class InfoOfferView extends Component {
                       Piętro:
                   </div>
                   <div className="col-6">
-                      <div className="float-right">3</div>
+                      <div className="float-right">{offer.floor}</div>
                   </div>
                   <div className="col-6">
                       Ilość pięter:
