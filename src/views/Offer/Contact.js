@@ -72,7 +72,8 @@ class Contact extends Component {
                                 </div>
                                 <div className="col-md-12">
                                     <button type="submit" className="btn btn-outline-light col-12 " id="btnContactUs">
-                                        Wyślij wiadomość</button>
+                                        Wyślij wiadomość
+                                    </button>
                                 </div>
                             </div>
                         </form>
