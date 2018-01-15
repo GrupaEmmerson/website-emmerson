@@ -66,7 +66,7 @@ class OfferView extends Component {
                             />
                         </div>
                         <div className='contact'>
-                            <Contact />
+                            <Contact adviser={this.state.offer.adviser}/>
                         </div>
                         <div className='offer-box col-12 col-sm-12 col-md-12 col-lg-12 row nopadding' style={{marginTop: 50+'px'}}>
                             <div className='col-12' style={{ marginTop: 20+'px'}}>

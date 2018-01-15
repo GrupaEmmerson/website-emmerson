@@ -82,10 +82,10 @@ class InfoOfferView extends Component {
                   <div style={{backgroundColor: '#e3001b', padding: 4+'px'}} className='col-9'>Rzut:</div>
               </div>
               <div  className='col-12'>
-                  <img src='https://cdn31.draftway.pl/virgobig.ashx?5330842' style={{width: 100+'%', cursor: 'pointer'}} onClick={()=>this.setState({ isOpen: true, photoIndex: 0 })}/>
+                  <img src={offer.floor_plan} style={{width: 100+'%', cursor: 'pointer'}} onClick={()=>this.setState({ isOpen: true, photoIndex: 0 })}/>
                   {this.state.isOpen && (
                       <Lightbox
-                          mainSrc={'https://cdn31.draftway.pl/virgobig.ashx?5330842' }
+                          mainSrc={ offer.floor_plan }
                           onCloseRequest={() => this.setState({ isOpen: false })}
                       />
                   )}

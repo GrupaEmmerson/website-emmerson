@@ -23,23 +23,32 @@ class Contact extends Component {
     }
 
     render() {
+        const { adviser } = this.props;
         return (
             <div className="container-fluid nopadding" >
                 <div className="col-md-12 ">
                     <div className="col-md-12 nopadding">
                         <form>
                             <legend><span className="fa fa-envelope"></span> Kontakt:</legend>
-                            <address>
-                                <strong>Emmerson</strong> Paweł Jardzioch<br/>
-                                Stawki 40<br/>
-                                01-040 Warszawa<br/><br/>
-                                <abbr title="Telefon">
-                                    Tel:</abbr>
-                                +48 516 000 571<br/>
-                                <abbr title="E-mail">
-                                    Email:</abbr>&nbsp;
-                                <a style={{color:'#fff'}} href="mailto:pawel.jardzioch@emmerson.pl">pawel.jardzioch@emmerson.pl</a>
-                            </address>
+                            <div className='row'>
+                                <div className='col-5'>
+                                    <img src={adviser.photo} style={{width: 100+'px'}}/>
+                                </div>
+                                <div className='col-7'>
+                                    <address>
+                                        <strong>{adviser.name}</strong><br/>
+                                        Stawki 40<br/>
+                                        01-040 Warszawa<br/>
+                                        +48 {adviser.cell_phone}<br/>
+                                        {adviser.phone ? adviser.phone : ''}
+                                    </address>
+                                </div>
+                                <div className='col-12'>
+                                    <br/>
+                                    <a style={{color:'#fff'}} href={adviser.email}>{adviser.email}</a>
+                                    <br/><br/>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div className="well well-sm ">
